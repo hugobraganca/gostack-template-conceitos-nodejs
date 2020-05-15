@@ -65,7 +65,6 @@ app.delete("/repositories/:id", (request, response) => {
 
 app.post("/repositories/:id/like", (request, response) => {
   const { id } = request.params;
-  let { likes } = request.body;
 
   const repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
@@ -74,20 +73,22 @@ app.post("/repositories/:id/like", (request, response) => {
   }
 
   const repositorieReturn = repositories.find(repositorie => repositorie.id === id)
+  // console.log(repositorieReturn);
 
-  const { title, url, techs } = repositorieReturn;
+  let { title, url, techs, likes } = repositorieReturn;
 
   likes = likes + 1;
 
   const repositorie = { id, title, url, techs, likes };
 
   repositories[repositorieIndex] = repositorie;
+  // console.log(repositories);
 
   return response.json(repositorie);
 });
 
-app.listen(2223, () => {
-  console.log('🖥  Project started!')
-});
+// app.listen(2223, () => {
+//   console.log('🖥  Project started!')
+// });
 
 module.exports = app;
